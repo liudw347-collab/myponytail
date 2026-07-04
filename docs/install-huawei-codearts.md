@@ -149,12 +149,14 @@ export PONYTAIL_DEFAULT_MODE=ultra   # lite / full / ultra / off
 安装完成后，在码道对话窗口里输入：
 
 ```
-用 ponytail 模式给我写一个 Python 邮箱验证函数
+用 ponytail 模式给我写一个 VB.NET 邮箱验证函数
 ```
 
+（C++ 项目可以试：`用 ponytail 模式给我写一个 C++ 邮箱验证函数`）
+
 如果安装正确，码道会：
-1. 优先建议标准库方案（如 `email.utils.parseaddr` 或简单的 `"@" in email` 检查）
-2. 跳过自定义 validator 类
+1. 优先建议 .NET 内置方案（VB.NET 用 `System.Net.Mail.MailAddress` 或简单的 `email.Contains("@")` 检查；C++ 用 `std::string::find('@')` 或 `<regex>`）
+2. 跳过自定义 `EmailValidator` 类
 3. 在代码后用 1-3 行说明跳过了什么、何时加回来
 
 如果码道照旧写了一个 30 行的 `EmailValidator` 类，说明技能未生效，请回到"技能与规则"页面检查状态。

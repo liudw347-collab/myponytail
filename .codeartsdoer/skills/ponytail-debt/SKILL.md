@@ -10,7 +10,7 @@ description: >
 
 grep 仓库中的注释标记，跳过 `node_modules`、`.git`、构建产物：
 
-`grep -rnE '(#|//) ?ponytail:' .`  （如果你的技术栈用其他注释前缀，加上）
+`grep -rnE "(#|//|') ?ponytail:" .`  （前缀覆盖 `#` Python、`//` C++/C#、`'` VB.NET；如有其他注释前缀自行扩展）
 
 每个命中一行账本。注释前缀把只是顺带提到这个约定的散文排除在账本之外。
 
