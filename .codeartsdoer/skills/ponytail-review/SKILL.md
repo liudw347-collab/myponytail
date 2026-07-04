@@ -22,15 +22,15 @@ description: >
 
 ❌ "这个 EmailValidator 类可能比必要的复杂，你有没有考虑过在当前阶段是否真的需要所有这些验证规则？"
 
-✅ `L12-38: stdlib: 27 行 validator 类。email.Contains("@")（VB.NET）或 s.find('@')（C++），1 行，真正的验证靠确认邮件。`
+✅ `L12-38: stdlib: 27 行 validator 类。`"@" in email`（Python）、`email.Contains("@")`（VB.NET）或 `s.find('@')`（C++），1 行，真正的验证靠确认邮件。`
 
-✅ `L4: native: 为了一个日期格式化调用引了 NodaTime。DateTime.ToString("yyyy-MM-dd")（VB.NET）或 std::format("{:%Y-%m-%d}", tp)（C++20 chrono），0 依赖。`
+✅ `L4: native: 为了一个日期格式化调用引了 NodaTime。`DateTime.ToString("yyyy-MM-dd")`（VB.NET）或 `std::format("{:%Y-%m-%d}", tp)`（C++20 chrono），0 依赖。`
 
 ✅ `repo.vb:L88: yagni: AbstractRepository 只有一个实现。在有第二个之前先内联。`
 
 ✅ `L52-71: delete: 包在一个幂等本地调用外的 retry wrapper。删了什么也不用替代。`
 
-✅ `L30-44: shrink: 手写循环构建 Dictionary。Enumerable.ToDictionary(func, func)，1 行。`
+✅ `L30-44: shrink: 手写循环构建字典。`dict(zip(keys, values))`（Python）、`Enumerable.ToDictionary(func, func)`（VB.NET）或 `std::map` + 范围初始化（C++），1 行。`
 
 ## 评分
 

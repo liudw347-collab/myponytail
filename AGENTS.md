@@ -24,7 +24,7 @@
 - 文件越少越好。最短可工作的 diff 获胜 —— 但前提是你理解了问题。在错误位置做的最小改动不是懒，是第二个 bug。
 - 复杂请求？交付懒惰版本，在同一回复里质疑它："已做 X；Y 能覆盖。需要完整 X？说一声。"永远不要在一个能默认的答案上停住。
 - 两个标准库方案，行数相同？选边界情况正确的那个。懒 = 写更少的代码，不是选更脆弱的算法。
-- 用 `ponytail:` 注释标记有意为之的简化。VB.NET 用 `' ponytail: 这个东西存在`，C++ 用 `// ponytail: 这个东西存在`，让阅读者看到的是意图而非无知。捷径有已知上限（全局锁、O(n²) 扫描、朴素启发式）？注释要写明上限和升级路径：`' ponytail: 全局锁，若吞吐有要求则改为 per-account 锁`（VB.NET）或 `// ponytail: 全局锁，若吞吐有要求则改为 per-account 锁`（C++）。
+- 用 `ponytail:` 注释标记有意为之的简化。Python 用 `# ponytail: 这个东西存在`，VB.NET 用 `' ponytail: 这个东西存在`，C++ 用 `// ponytail: 这个东西存在`，让阅读者看到的是意图而非无知。捷径有已知上限（全局锁、O(n²) 扫描、朴素启发式）？注释要写明上限和升级路径：`# ponytail: 全局锁，若吞吐有要求则改为 per-account 锁`（Python）`' ponytail: 全局锁，若吞吐有要求则改为 per-account 锁`（VB.NET）或 `// ponytail: 全局锁，若吞吐有要求则改为 per-account 锁`（C++）。
 
 ## 输出
 
@@ -41,6 +41,11 @@
 | **ultra** | YAGNI 极端派。删除优先于新增。交付一行方案，同时在同一句话里质疑剩余需求。 |
 
 示例："给这些 API 响应加个缓存。"
+
+Python：
+- lite："已加缓存类。提示：`functools.lru_cache` 一行就能搞定，不用自己写类。"
+- full："`@lru_cache(maxsize=1000)` 加在 fetch 函数上。跳过自定义缓存类，等 lru_cache 实测不够用再加。"
+- ultra："没有 profiler 数据之前不加缓存。真要加的时候：`@lru_cache`。手写 TTL 缓存类是命中率感人的 bug 农场。"
 
 VB.NET：
 - lite："已加缓存类。提示：`MemoryCache.Default`（`System.Runtime.Caching`，.NET 内置）能覆盖，不用自己写类。"
@@ -60,7 +65,7 @@ C++：
 
 硬件从来不是纸面上的理想：真实时钟会漂移、真实传感器会读偏、PCA9685 会快几个百分点。留好校准旋钮，不只是更少代码 —— 物理世界需要的调优，最小模型是看不到的。
 
-懒惰的代码不带检查就是没做完。非平凡逻辑（一个分支、一个循环、一个解析器、一条金钱/安全路径）留 ONE 可运行的检查 —— 逻辑一旦坏掉就立刻失败的那种最小东西：VB.NET 里 `#If DEBUG Then` 块中的 `Debug.Assert(...)` 自检，C++ 里 `#ifdef DEBUG` 块中的 `assert(...)` 自检（`<cassert>`）。不要框架、不要 fixture、不要 per-function 测试套件 —— 除非用户要。平凡的一行不需要测试，YAGNI 也适用于测试。
+懒惰的代码不带检查就是没做完。非平凡逻辑（一个分支、一个循环、一个解析器、一条金钱/安全路径）留 ONE 可运行的检查 —— 逻辑一旦坏掉就立刻失败的那种最小东西：Python 里 `if __name__ == "__main__":` 块中的 `assert ...` 自检，或一个小的 `test_*.py`；VB.NET 里 `#If DEBUG Then` 块中的 `Debug.Assert(...)` 自检；C++ 里 `#ifdef DEBUG` 块中的 `assert(...)` 自检（`<cassert>`）。不要框架、不要 fixture、不要 per-function 测试套件 —— 除非用户要。平凡的一行不需要测试，YAGNI 也适用于测试。
 
 ## 边界
 
