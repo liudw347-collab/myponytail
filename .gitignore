@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# Ponytail runtime state (don't commit per-user state)
+.config/ponytail/
+*.ponytail-mode
+
+# Build artifacts
+*.zip
+dist/
+build/
